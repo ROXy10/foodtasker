@@ -21,7 +21,13 @@
     <![endif]-->
 </head>
 <body>
-Restaurant Sing Up
+    <form method="post">
+        {% csrf_token %}
+        {{ user_form }}
+        {{ restaurant_form }}
+        <button type="submit">Sign Up</button>
+    </form>
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
