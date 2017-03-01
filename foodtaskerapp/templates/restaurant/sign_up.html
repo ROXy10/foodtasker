@@ -21,7 +21,7 @@
     <![endif]-->
 </head>
 <body>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ user_form }}
         {{ restaurant_form }}
