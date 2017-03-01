@@ -1,1 +1,1 @@
-web: gunicorn foodtasker.wsgi --log-file
+web: gunicorn sixerr.wsgi --log-file -
