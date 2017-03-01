@@ -12,3 +12,10 @@ def restaurant_home(request):
 
     }
     return render(request, 'restaurant/home.html', context)
+
+
+def restaurant_sing_up(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/sing_up.html', context)
