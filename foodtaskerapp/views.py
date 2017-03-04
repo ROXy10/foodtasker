@@ -15,7 +15,39 @@ def restaurant_home(request):
     context = {
 
     }
-    return render(request, 'restaurant/home.html', context)
+    return render(request, 'restaurant/base.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_account(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/account.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_meal(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/meal.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_order(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/order.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_report(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/report.html', context)
 
 
 def restaurant_sing_up(request):
