@@ -3,6 +3,10 @@
 {% block title %}Restaurant Page{% endblock %}
 
 {% block sidebar %}
+    {% url 'restaurant-order' as restaurant_order_url %}
+    {% url 'restaurant-meal' as restaurant_meal_url %}
+    {% url 'restaurant-report' as restaurant_report_url %}
+    {% url 'restaurant-account' as restaurant_account_url %}
     <div class="text-center sidebar__header">
         <img src="{{ request.user.restaurant.logo.url }}" class="img-circle sidebar__header-img" width="70" height="70">
         <br/>
@@ -12,11 +16,11 @@
     </div>
     <div class="list-group sidebar__list-group">
         <span class="text-uppercase sidebar__list-group-line">Dashboard</span>
-        <a class="list-group-item list-group-item--first" href="{% url 'restaurant-order' %}">Orders</a>
-        <a class="list-group-item" href="{% url 'restaurant-meal' %}">Meals</a>
-        <a class="list-group-item" href="{% url 'restaurant-report' %}">Reports</a>
+        <a class="list-group-item list-group-item--first {% if request.path ==  restaurant_order_url%}active{% endif %}" href="{% url 'restaurant-order' %}">Orders</a>
+        <a class="list-group-item {% if request.path ==  restaurant_meal_url %}active{% endif %}" href="{% url 'restaurant-meal' %}">Meals</a>
+        <a class="list-group-item {% if request.path ==  restaurant_report_url %}active{% endif %}" href="{% url 'restaurant-report' %}">Reports</a>
         <span class="text-uppercase sidebar__list-group-line">Profile</span>
-        <a class="list-group-item" href="{% url 'restaurant-account' %}">Account</a>
+        <a class="list-group-item {% if request.path ==  restaurant_account_url %}active{% endif %}" href="{% url 'restaurant-account' %}">Account</a>
     </div>
     <div class="text-uppercase sidebar__footer">
         <a class="btn btn-pink sidebar__footer-btn" href="{% url 'restaurant-sign-out' %}?next={{ request.path }}">Logout</a>

@@ -26,7 +26,7 @@
                     {% for meal in meals %}
                         <tr>
                             <td class="table-cel" scope="row">{{ forloop.counter }}</td>
-                            <td class="table-cel" ><a href="#">{{ meal.name }}</a></td>
+                            <td class="table-cel" ><a href="{% url 'restaurant-edit-meal' meal.id %}">{{ meal.name }}</a></td>
                             <td class="table-cel" >{{ meal.short_description }}</td>
                             <td class="table-cel">{{ meal.price }}</td>
                             <td class="text-center"><img class="img-rounded" src="{{ meal.image.url }}" width="50" height="50"></td>
