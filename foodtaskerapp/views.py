@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from .forms import UserForm, RestaurantForm, UserEditForm, MealForm
-
+from .models import Meal
 
 def home(request):
     return redirect(restaurant_home)
@@ -37,8 +37,9 @@ def restaurant_account(request):
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_meal(request):
+    meals = Meal.objects.filter(restaurant=request.user.restaurant).order_by('-id')
     context = {
-
+        'meals': meals
     }
     return render(request, 'restaurant/meal.html', context)
 
