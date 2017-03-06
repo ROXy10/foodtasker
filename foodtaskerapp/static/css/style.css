@@ -67,7 +67,9 @@ a.list-group-item,
     padding-right: 30px;
     outline: none;
 }
-a.list-group-item--active,
+a.list-group-item.active,
+a.list-group-item.active:focus,
+a.list-group-item.active:hover,
 a.list-group-item:hover {
     background-color: rgb(56, 57, 87);;
     color: rgb(224, 222, 235);
