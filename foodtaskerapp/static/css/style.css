@@ -7,7 +7,9 @@ body {
 .bg-blue {
     background-color: rgb(63, 63, 99);
 }
-
+.text-white {
+    color: rgb(255, 255, 255);
+}
 .btn-pink {
     color: white;
     background-color: rgb(238, 84, 98);
@@ -39,14 +41,14 @@ body {
     color: rgb(224, 222, 235);
 }
 .sidebar__header-restaurant {
-    color: rgb(182, 180, 183);
+    color: rgb(182, 180, 193);
 }
 .sidebar__list-group {
     padding: 0;
-    background-color: #3f3f63;
+    background-color: rgb(63, 63, 99);
 }
 .sidebar__list-group-line {
-    color: #b6b4c1;
+    color: rgb(182, 180, 193);
     display: block;
     margin-top: 20px;
     padding: 20px 30px;
@@ -55,8 +57,8 @@ body {
 }
 a.list-group-item,
 .list-group-item:focus {
-    background-color: #3f3f63;
-    color: #b6b4c1;
+    background-color: rgb(63, 63, 99);
+    color: rgb(182, 180, 193);
     border: 0;
     padding-left: 60px;
     padding-right: 30px;
@@ -64,8 +66,8 @@ a.list-group-item,
 }
 a.list-group-item--active,
 a.list-group-item:hover {
-    background-color: #383957;
-    color: #e0deeb;
+    background-color: rgb(56, 57, 87);;
+    color: rgb(224, 222, 235);
 }
 a.list-group-item--first {
     border-top-left-radius: 0;
@@ -73,8 +75,8 @@ a.list-group-item--first {
 }
 a.list-group-item .badge,
 a.list-group-item.active .badge{
-    background-color: #ee5462;
-    color: #e0deeb;
+    background-color: rgb(238, 84, 98);
+    color: rgb(224, 222, 235);
 }
 .sidebar__footer {
     padding: 30px;
@@ -87,4 +89,8 @@ a.list-group-item.active .badge{
 .content {
     padding: 0 40px;
 }
+.content .panel {
+    border: none;
+}
+
 /*CONTENT STYLES END*/
