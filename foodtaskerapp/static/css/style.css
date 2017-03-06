@@ -7,6 +7,9 @@ body {
 .bg-blue {
     background-color: rgb(63, 63, 99);
 }
+.bg-gray {
+    background-color: #88a1b2;
+}
 .text-white {
     color: rgb(255, 255, 255);
 }
@@ -91,6 +94,12 @@ a.list-group-item.active .badge{
 }
 .content .panel {
     border: none;
+}
+.table>tbody>tr>td, .table>thead>tr>td {
+    vertical-align: middle;
+}
+.table, .table-head {
+    border-color: #88a1b2;
 }
 
 /*CONTENT STYLES END*/
