@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'bootstrap3',
     'oauth2_provider',
     'social_django',
     'rest_framework_social_oauth2',
