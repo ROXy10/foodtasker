@@ -19,6 +19,18 @@ class UserForm(forms.ModelForm):
         )
 
 
+class UserEditForm(forms.ModelForm):
+    email = forms.EmailField(max_length=100, required=True, widget=forms.EmailInput)
+
+    class Meta:
+        model = User
+        fields = (
+            'first_name',
+            'last_name',
+            'email',
+        )
+
+
 class RestaurantForm(forms.ModelForm):
     class Meta:
         model = Restaurant
