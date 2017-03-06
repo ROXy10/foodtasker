@@ -3,14 +3,22 @@
 {% block title %}Restaurant Page{% endblock %}
 
 {% block sidebar %}
-    Restaurant, Hi {{ request.user }}
-    <hr/>
-    <a href="{% url 'restaurant-account' %}">Account</a>
-    -
-    <a href="{% url 'restaurant-meal' %}">Meal</a>
-    -
-    <a href="{% url 'restaurant-order' %}">Order</a>
-    -
-    <a href="{% url 'restaurant-report' %}">Report</a>
-
+    <div class="text-center sidebar__header">
+        <img src="{{ request.user.restaurant.logo.url }}" class="img-circle sidebar__header-img" width="70" height="70">
+        <br/>
+        <br/>
+        <h4 class="sidebar__header-user">Hi, {{ request.user.get_full_name }}</h4>
+        <h5 class="sidebar__header-restaurant">{{ request.user.restaurant.name }}</h5>
+    </div>
+    <div class="list-group sidebar__list-group">
+        <span class="text-uppercase sidebar__list-group-line">Dashboard</span>
+        <a class="list-group-item list-group-item--first" href="{% url 'restaurant-order' %}">Orders</a>
+        <a class="list-group-item" href="{% url 'restaurant-meal' %}">Meals</a>
+        <a class="list-group-item" href="{% url 'restaurant-report' %}">Reports</a>
+        <span class="text-uppercase sidebar__list-group-line">Profile</span>
+        <a class="list-group-item" href="{% url 'restaurant-account' %}">Account</a>
+    </div>
+    <div class="text-uppercase sidebar__footer">
+        <a class="btn btn-pink sidebar__footer-btn" href="{% url 'restaurant-sign-out' %}?next={{ request.path }}">Logout</a>
+    </div>
 {% endblock %}

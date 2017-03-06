@@ -1,0 +1,90 @@
+body {
+    padding-top: 50px;
+    background-color: rgb(237, 242, 245);
+    overflow: auto;
+}
+
+.bg-blue {
+    background-color: rgb(63, 63, 99);
+}
+
+.btn-pink {
+    color: white;
+    background-color: rgb(238, 84, 98);
+}
+
+.btn-pink:hover, .btn-pink:focus {
+    color: white;
+    background-color: rgb(218, 79, 93);
+    outline: none;
+}
+
+/*SIDE BAR STYLES*/
+.sidebar {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 0;
+    background-color: rgb(63, 63, 99);
+    overflow: auto;
+}
+.sidebar__header{
+    padding: 30px 10px;
+    font-weight: bold;
+    font-size: 15px;
+    background-color: rgb(56, 57, 87);
+}
+.sidebar__header-user {
+    color: rgb(224, 222, 235);
+}
+.sidebar__header-restaurant {
+    color: rgb(182, 180, 183);
+}
+.sidebar__list-group {
+    padding: 0;
+    background-color: #3f3f63;
+}
+.sidebar__list-group-line {
+    color: #b6b4c1;
+    display: block;
+    margin-top: 20px;
+    padding: 20px 30px;
+    font-size: 16px;
+    font-weight: 300;
+}
+a.list-group-item,
+.list-group-item:focus {
+    background-color: #3f3f63;
+    color: #b6b4c1;
+    border: 0;
+    padding-left: 60px;
+    padding-right: 30px;
+    outline: none;
+}
+a.list-group-item--active,
+a.list-group-item:hover {
+    background-color: #383957;
+    color: #e0deeb;
+}
+a.list-group-item--first {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+a.list-group-item .badge,
+a.list-group-item.active .badge{
+    background-color: #ee5462;
+    color: #e0deeb;
+}
+.sidebar__footer {
+    padding: 30px;
+}
+.sidebar__footer-btn{
+    width: 100%;
+}
+/*SIDE BAR STYLES END*/
+/*CONTENT STYLES*/
+.content {
+    padding: 0 40px;
+}
+/*CONTENT STYLES END*/

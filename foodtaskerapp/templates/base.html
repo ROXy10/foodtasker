@@ -21,10 +21,17 @@
     <![endif]-->
 </head>
 <body>
-{% block sidebar %}{% endblock %}
-{% block page %}{% endblock %}
 
-
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 sidebar">
+            {% block sidebar %}{% endblock %}
+        </div>
+        <div class="col-sm-10 content">
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+</div>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
