@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
-from .forms import UserForm, RestaurantForm
+from .forms import UserForm, RestaurantForm, UserEditForm
 
 
 def home(request):
@@ -12,16 +12,25 @@ def home(request):
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_home(request):
-    context = {
-
-    }
     return redirect(restaurant_order)
 
 
 @login_required(login_url='/restaurant/sign-in/')
 def restaurant_account(request):
-    context = {
+    user_form = UserEditForm(instance=request.user)
+    restaurant_form = RestaurantForm(instance=request.user.restaurant)
 
+    if request.method == 'POST':
+        user_form = UserEditForm(request.POST, instance=request.user)
+        restaurant_form = RestaurantForm(request.POST, request.FILES, instance=request.user.restaurant)
+
+        if user_form.is_valid() and restaurant_form.is_valid():
+            user_form.save()
+            restaurant_form.save()
+
+    context = {
+        'user_form': user_form,
+        'restaurant_form': restaurant_form,
     }
     return render(request, 'restaurant/account.html', context)
 
