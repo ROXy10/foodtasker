@@ -44,6 +44,14 @@ def restaurant_meal(request):
 
 
 @login_required(login_url='/restaurant/sign-in/')
+def restaurant_add_meal(request):
+    context = {
+
+    }
+    return render(request, 'restaurant/add_meal.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):
     context = {
 
