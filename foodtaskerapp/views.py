@@ -15,7 +15,7 @@ def restaurant_home(request):
     context = {
 
     }
-    return render(request, 'restaurant/base.html', context)
+    return redirect(restaurant_order)
 
 
 @login_required(login_url='/restaurant/sign-in/')
