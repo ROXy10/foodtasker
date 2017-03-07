@@ -66,3 +66,16 @@ class Order(models.Model):
     status = models.IntegerField(choices=STATUS_CHOICES)
     created_at = models.DateTimeField(default=timezone.now)
     picked_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return str(self.id)
+
+
+class OrderDetail(models.Model):
+    order = models.ForeignKey(Order, related_name='order_detail')
+    meal = models.ForeignKey(Meal)
+    quantity = models.IntegerField()
+    sub_total = models.IntegerField()
+
+    def __str__(self):
+        return str(self.id)
