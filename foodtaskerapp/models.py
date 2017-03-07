@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils import timezone
 
 
 class Restaurant(models.Model):
@@ -42,3 +43,26 @@ class Meal(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Order(models.Model):
+    COOKING = 1
+    READY = 2
+    ONTHEWAY = 3
+    DELIVERED = 4
+
+    STATUS_CHOICES = (
+        (COOKING, 'Cooking'),
+        (READY, 'Ready'),
+        (ONTHEWAY, 'On the way'),
+        (DELIVERED, 'Delivered'),
+    )
+
+    customer = models.ForeignKey(Customer)
+    restaurant = models.ForeignKey(Restaurant)
+    driver = models.ForeignKey(Driver)
+    address = models.CharField(max_length=500)
+    total = models.IntegerField()
+    status = models.IntegerField(choices=STATUS_CHOICES)
+    created_at = models.DateTimeField(default=timezone.now)
+    picked_at = models.DateTimeField(blank=True, null=True)
