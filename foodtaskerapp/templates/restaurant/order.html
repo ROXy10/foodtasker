@@ -16,6 +16,7 @@
                     <th class="table-head">Driver</th>
                     <th class="table-head">Total</th>
                     <th class="table-head">Status</th>
+                    <th class="table-head">Action</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,15 @@
                         <td class="table-cel">{{ order.driver }}</td>
                         <td class="table-cel">{{ order.total }}</td>
                         <td class="table-cel">{{ order.get_status_display }}</td>
+                        <td>
+                            {% if order.status == 1 %}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <input name="id" value="{{ order.id }}" hidden>
+                                    <button class="btn btn-success">Ready</button>
+                                </form>
+                            {% endif %}
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>
