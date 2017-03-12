@@ -4,10 +4,13 @@ from .models import Restaurant
 from .serializers import RestaurantSerializer
 
 
-def customer_get_restaurant(request):
+def customer_get_restaurants(request):
     restaurants = RestaurantSerializer(
         Restaurant.objects.all().order_by('-id'),
-        many=True
+        many=True,
+        context={
+            'request': request,
+        }
     ).data
 
     context = {
@@ -16,3 +19,19 @@ def customer_get_restaurant(request):
     return JsonResponse(context)
 
 
+def customer_get_meals(request):
+    context = {
+    }
+    return JsonResponse(context)
+
+
+def customer_add_order(request):
+    context = {
+    }
+    return JsonResponse(context)
+
+
+def customer_get_latest_order(request):
+    context = {
+    }
+    return JsonResponse(context)
