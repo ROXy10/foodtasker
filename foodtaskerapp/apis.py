@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from oauth2_provider.models import AccessToken
 
 from .models import Restaurant, Meal, Order, OrderDetail
-from .serializers import RestaurantSerializer, MealSerializer
+from .serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
 
 def customer_get_restaurants(request):
@@ -98,7 +98,12 @@ def customer_add_order(request):
 
 
 def customer_get_latest_order(request):
+    access_token = AccessToken.objects.get(token=request.GET.get('access_token'), expires__gt=timezone.now())
+    customer = access_token.user.customer
+    order = OrderSerializer(Order.objects.filter(customer=customer).last()).data
+
     context = {
+        'order': order
     }
     return JsonResponse(context)
 
