@@ -96,12 +96,20 @@ def customer_add_order(request):
 
             return JsonResponse({'status': 'success'})
 
-    context = {
-    }
-    return JsonResponse(context)
-
 
 def customer_get_latest_order(request):
     context = {
     }
     return JsonResponse(context)
+
+
+def restaurant_order_notification(request, last_request_time):
+    notification = Order.objects.filter(restaurant=request.user.restaurant, created_at__gt=last_request_time).count()
+
+    context = {
+        'notification': notification,
+    }
+    return JsonResponse(context)
+
+
+
