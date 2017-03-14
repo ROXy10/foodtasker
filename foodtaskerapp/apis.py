@@ -141,7 +141,46 @@ def driver_get_ready_orders(request):
     return JsonResponse(context)
 
 
+@csrf_exempt
 def driver_pick_order(request):
+    """
+        POST
+        :param:
+            access_token
+            order_id
+    """
+    if request.method == 'POST':
+        # Get token
+        access_token = AccessToken.objects.get(token=request.POST.get('access_token'), expires__gt=timezone.now())
+
+        #Get driver
+        driver = access_token.user.driver
+
+        # Check if driver can only pick up one order at the same time
+        if Order.objects.filter(driver=driver).exclude(status=Order.ONTHEWAY):
+            context = {
+                'status': 'failed',
+                'error': 'Tou can only pick one order at the same time.'
+            }
+            return JsonResponse(context)
+
+        try:
+            order = Order.objects.get(id=request.POST['order_id'], driver=None, status=Order.READY)
+            order.driver = driver
+            order.status = Order.ONTHEWAY
+            order.picked_at = timezone.now()
+            order.save()
+
+            context = {
+                'status': 'success'
+            }
+            return JsonResponse(context)
+        except Order.DoesNotExist:
+            context = {
+                'status': 'failed',
+                'error': 'This order has been picked up by another.'
+            }
+            return JsonResponse(context)
 
     context = {
     }
