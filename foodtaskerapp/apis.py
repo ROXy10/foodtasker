@@ -188,8 +188,19 @@ def driver_pick_order(request):
 
 
 def driver_get_latest_order(request):
+    """
+        GET
+        :param:
+            access_token
+    """
+    access_token = AccessToken.objects.get(token=request.GET.get('access_token'), expires__gt=timezone.now())
+    driver = access_token.user.driver
+    order = OrderSerializer (
+        Order.objects.filter(driver=driver).order_by('picked_at').last()
+    ).data
 
     context = {
+        'order': order
     }
     return JsonResponse(context)
 
