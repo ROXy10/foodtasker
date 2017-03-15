@@ -27,6 +27,30 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <!-- TOP 3 Meals -->
+            <div class="panel">
+                <div class="panel-body bg-blue">
+                    <h4 class="panel-title text-center text-white">
+                        TOP 3 Meals
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="mealChart" height="242"></canvas>
+                </div>
+            </div>
+            <!-- TOP 3 Driver ALL TIME -->
+            <div class="panel">
+                <div class="panel-body bg-blue">
+                    <h4 class="panel-title text-center text-white">
+                        TOP 3 Driver
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="driverChart" height="242"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
 
@@ -66,6 +90,44 @@
         new Chart(orderChart, {
             type: 'bar',
             data: dataOrder
+        });
+        var mealChart = document.getElementById('mealChart').getContext('2d');
+        var dataMeal = {
+            labels: {{ meal.labels|safe }},
+            datasets: [
+                {
+                    backgroundColor: [
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#FF6384'
+                    ],
+                    data: {{ meal.data }}
+                }
+            ]
+        };
+
+        new Chart(mealChart, {
+            type: 'pie',
+            data: dataMeal
+        });
+        var driverChart = document.getElementById('driverChart').getContext('2d');
+        var dataDriver = {
+            labels: {{ driver.labels|safe }},
+            datasets: [
+                {
+                    backgroundColor: [
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#FF6384'
+                    ],
+                    data: {{ driver.data }}
+                }
+            ]
+        };
+
+        new Chart(driverChart, {
+            type: 'pie',
+            data: dataDriver
         })
     </script>
 {% endblock %}
