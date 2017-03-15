@@ -6,7 +6,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from oauth2_provider.models import AccessToken
 
-from .models import Restaurant, Meal, Order, OrderDetail
+from .models import Restaurant, Meal, Order, OrderDetail, Driver
 from .serializers import RestaurantSerializer, MealSerializer, OrderSerializer
 
 
@@ -112,10 +112,15 @@ def customer_get_latest_order(request):
     return JsonResponse(context)
 
 
+def customer_driver_location(request):
+    context = {
+    }
+    return JsonResponse(context)
+
+
 #################
 # RESTAURANT
 #################
-
 def restaurant_order_notification(request, last_request_time):
     notification = Order.objects.filter(restaurant=request.user.restaurant, created_at__gt=last_request_time).count()
 
@@ -252,5 +257,27 @@ def driver_get_revenue(request):
         'revenue': revenue
     }
     return JsonResponse(context)
+
+
+@csrf_exempt
+def driver_update_location(request):
+    """
+        POST
+        :param:
+            access_token
+            'lat, lng'
+    """
+    if request.method == 'POST':
+        access_token = AccessToken.objects.get(token=request.POST.get('access_token'), expires__gt=timezone.now())
+        driver = access_token.user.driver
+
+        # Sel location string => database
+        driver.location = request.POST['location']
+        driver.save()
+
+        context = {
+            'status': 'success'
+        }
+        return JsonResponse(context)
 
 
