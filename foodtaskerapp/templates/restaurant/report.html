@@ -2,4 +2,70 @@
 
 
 {% block page %}
+    <div class="row">
+        <div class="col-md-8">
+            <!-- Revenue by week -->
+            <div class="panel">
+                <div class="panel-body bg-blue">
+                    <h4 class="panel-title text-center text-white">
+                        Revenue by Week
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="revenueChart" height="110"></canvas>
+                </div>
+            </div>
+            <!-- Orders by week -->
+            <div class="panel">
+                <div class="panel-body bg-blue">
+                    <h4 class="panel-title text-center text-white">
+                        Order by Week
+                    </h4>
+                </div>
+                <div class="panel-body">
+                    <canvas id="orderChart" height="110"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script>
+        var revenueChart = document.getElementById('revenueChart').getContext('2d');
+        var dataRevenue = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Revenue by Week',
+                    backgroundColor: 'rgba(54, 162, 235, 0.9)',
+                    hoverBackgroundColor: 'rgba(54, 162, 235, 1)',
+                    data: {{ revenue }}
+                }
+            ]
+        };
+
+        new Chart(revenueChart, {
+            type: 'bar',
+            data: dataRevenue
+        });
+        var orderChart = document.getElementById('orderChart').getContext('2d');
+        var dataOrder = {
+            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            datasets: [
+                {
+                    label: 'Order by Week',
+                    backgroundColor: 'rgba(255, 99, 132, 0.9)',
+                    hoverBackgroundColor: 'rgba(255, 99, 132, 1)',
+                    data: {{ orders }}
+                }
+            ]
+        };
+
+        new Chart(orderChart, {
+            type: 'bar',
+            data: dataOrder
+        })
+    </script>
 {% endblock %}
