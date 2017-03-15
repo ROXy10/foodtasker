@@ -113,7 +113,15 @@ def customer_get_latest_order(request):
 
 
 def customer_driver_location(request):
+    access_token = AccessToken.objects.get(token=request.GET.get('access_token'), expires__gt=timezone.now())
+    customer = access_token.user.customer
+
+    # Get driver's location related to this customer's currents order.
+    current_order = Order.objects.filter(customer=customer, status=Order.ONTHEWAY).last()
+    location = current_order.driver.location
+
     context = {
+        'location': location
     }
     return JsonResponse(context)
 
