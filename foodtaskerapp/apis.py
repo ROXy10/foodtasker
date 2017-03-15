@@ -205,15 +205,27 @@ def driver_get_latest_order(request):
     return JsonResponse(context)
 
 
+@csrf_exempt
 def driver_complete_order(request):
+    """
+        POST
+        :param:
+            access_token
+            order_id
+    """
+    access_token = AccessToken.objects.get(token=request.POST.get('access_token'), expires__gt=timezone.now())
+    driver = access_token.user.driver
+    order = Order.objects.get(id=request.POST['order_id'], driver=driver)
+    order.status = Order.DELIVERED
+    order.save()
 
     context = {
+        'status': 'success'
     }
     return JsonResponse(context)
 
 
 def driver_get_revenue(request):
-
     context = {
     }
     return JsonResponse(context)
