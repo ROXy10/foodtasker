@@ -1,10 +1,12 @@
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Sum, Count, Case, When
 from django.shortcuts import render, redirect
 
 from .forms import UserForm, RestaurantForm, UserEditForm, MealForm
-from .models import Meal, Order, OrderDetail
+from .models import Meal, Order, Driver
+
 
 def home(request):
     return redirect(restaurant_home)
@@ -115,9 +117,33 @@ def restaurant_report(request):
         revenue.append(sum(order.total for order in delivered_orders))
         orders.append(delivered_orders.count())
 
+    # TOP 3 Meals
+    top3_meals = Meal.objects.filter(restaurant=request.user.restaurant).annotate(
+        total_order=Sum('orderdetail__quantity')).order_by('-total_order')[:3]
+
+    meal = {
+        'labels': [meal.name for meal in top3_meals],
+        'data': [meal.total_order or 0 for meal in top3_meals]
+    }
+
+    # TOP 3 Driver
+    top3_driver = Driver.objects.annotate(
+        total_order=Count(
+            Case(
+                When(order__restaurant=request.user.restaurant, then=1)
+            )
+        )).order_by('-total_order')[:3]
+
+    driver = {
+        'labels': [driver.user.get_full_name() for driver in top3_driver],
+        'data': [driver.total_order or 0 for driver in top3_driver]
+    }
+
     context = {
         'revenue': revenue,
         'orders': orders,
+        'meal': meal,
+        'driver': driver,
     }
     return render(request, 'restaurant/report.html', context)
 
