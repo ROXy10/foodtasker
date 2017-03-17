@@ -6,7 +6,11 @@
             <h4 class="panel-title text-center text-white">Orders</h4>
         </div>
         <div class="panel-body">
-            <br/>
+            <div class="text-right">
+                <a href="{% url 'restaurant-add-order' %}" class="btn btn-pink">Add Order</a>
+                <br/>
+                <br/>
+            </div>
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr class="bg-gray text-white table-head">
@@ -22,11 +26,13 @@
                 <tbody>
                 {% for order in orders %}
                     <tr>
-                        <td class="table-cel" scope="row">{{ order.id }}</td>
-                        <td class="table-cel">
+                        <td class="table-cel" scope="row"><a
+                                href="{% url 'restaurant-edit-order' order.id %}">{{ order.id }}</a></td>
+                        <td class="table-cel"><a href="{% url 'restaurant-edit-order' order.id %}">
                             {% for od in order.order_details.all %}
                                 {{ od.meal.name }} {{ od.meal.price }} x {{ od.quantity }} = {{ od.sub_total }}
                             {% endfor %}
+                        </a>
                         </td>
                         <td class="table-cel">{{ order.customer }}</td>
                         <td class="table-cel">{{ order.driver }}</td>

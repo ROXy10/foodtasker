@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.utils import timezone
 
-from .models import Restaurant, Meal
+from .models import Restaurant, Meal, Order, OrderDetail
 
 
 class UserForm(forms.ModelForm):
@@ -46,3 +47,12 @@ class MealForm(forms.ModelForm):
     class Meta:
         model = Meal
         exclude = ('restaurant',)
+
+
+class OrderForm(forms.ModelForm):
+    created_at = forms.DateTimeField(widget=forms.SelectDateWidget, initial=timezone.now)
+    picked_at = forms.DateTimeField(widget=forms.SelectDateWidget, initial=timezone.now)
+
+    class Meta:
+        model = Order
+        exclude = ('restaurant', 'attribution')

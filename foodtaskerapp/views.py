@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum, Count, Case, When
 from django.shortcuts import render, redirect
 
-from .forms import UserForm, RestaurantForm, UserEditForm, MealForm
+from .forms import UserForm, RestaurantForm, UserEditForm, MealForm, OrderForm
 from .models import Meal, Order, Driver
 
 
@@ -81,6 +81,40 @@ def restaurant_edit_meal(request, meal_id):
 
 
 @login_required(login_url='/restaurant/sign-in/')
+def restaurant_add_order(request):
+    form = OrderForm()
+    if request.method == 'POST':
+        form = OrderForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.restaurant = request.user.restaurant
+            order.save()
+            return redirect(restaurant_order)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'restaurant/add_order.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
+def restaurant_edit_order(request, order_id):
+    form = OrderForm(instance=Order.objects.get(id=order_id))
+    if request.method == 'POST':
+        form = OrderForm(request.POST, request.FILES, instance=Order.objects.get(id=order_id))
+
+        if form.is_valid():
+            form.save()
+            return redirect(restaurant_meal)
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'restaurant/edit_order.html', context)
+
+
+@login_required(login_url='/restaurant/sign-in/')
 def restaurant_order(request):
     orders = Order.objects.filter(restaurant=request.user.restaurant).order_by('-id')
     if request.method == 'POST':
@@ -94,6 +128,8 @@ def restaurant_order(request):
         'orders': orders,
     }
     return render(request, 'restaurant/order.html', context)
+
+
 
 
 @login_required(login_url='/restaurant/sign-in/')
